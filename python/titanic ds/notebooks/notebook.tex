@@ -1,0 +1,870 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{EDA-titanic-Copy1. Part 2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+\end{Verbatim}
+
+
+    \section{Import Data}\label{import-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}setting path relatively. to ensure it works on windows/linux environments }
+         \PY{n}{raw\PYZus{}data\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{pardir}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{raw}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{train\PYZus{}file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{raw\PYZus{}data\PYZus{}path}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{test\PYZus{}file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{raw\PYZus{}data\PYZus{}path}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{train\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{train\PYZus{}file\PYZus{}path}\PY{p}{,}\PY{n}{index\PYZus{}col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PassengerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{test\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{test\PYZus{}file\PYZus{}path}\PY{p}{,}\PY{n}{index\PYZus{}col} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PassengerId}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} pandas.core.frame.DataFrame
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}to get info about columns}
+         \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 891 entries, 1 to 891
+Data columns (total 11 columns):
+Survived    891 non-null int64
+Pclass      891 non-null int64
+Name        891 non-null object
+Sex         891 non-null object
+Age         714 non-null float64
+SibSp       891 non-null int64
+Parch       891 non-null int64
+Ticket      891 non-null object
+Fare        891 non-null float64
+Cabin       204 non-null object
+Embarked    889 non-null object
+dtypes: float64(2), int64(4), object(5)
+memory usage: 83.5+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 418 entries, 892 to 1309
+Data columns (total 10 columns):
+Pclass      418 non-null int64
+Name        418 non-null object
+Sex         418 non-null object
+Age         332 non-null float64
+SibSp       418 non-null int64
+Parch       418 non-null int64
+Ticket      418 non-null object
+Fare        417 non-null float64
+Cabin       91 non-null object
+Embarked    418 non-null object
+dtypes: float64(2), int64(3), object(5)
+memory usage: 35.9+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}add new column in df with a default value}
+         \PY{n}{test\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}axis defines if you merge or append data. 0 appends data, 1 addds column}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} by default return 5. specify (n) to return n rows}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}               Age Cabin Embarked     Fare  \textbackslash{}
+         PassengerId                                 
+         1            22.0   NaN        S   7.2500   
+         2            38.0   C85        C  71.2833   
+         3            26.0   NaN        S   7.9250   
+         4            35.0  C123        S  53.1000   
+         5            35.0   NaN        S   8.0500   
+         
+                                                                   Name  Parch  Pclass  \textbackslash{}
+         PassengerId                                                                     
+         1                                      Braund, Mr. Owen Harris      0       3   
+         2            Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}      0       1   
+         3                                       Heikkinen, Miss. Laina      0       3   
+         4                 Futrelle, Mrs. Jacques Heath (Lily May Peel)      0       1   
+         5                                     Allen, Mr. William Henry      0       3   
+         
+                         Sex  SibSp  Survived            Ticket  
+         PassengerId                                             
+         1              male      1         0         A/5 21171  
+         2            female      1         1          PC 17599  
+         3            female      0         1  STON/O2. 3101282  
+         4            female      1         1            113803  
+         5              male      0         0            373450  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{df}\PY{o}{.}\PY{n}{Name}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} PassengerId
+         1                                 Braund, Mr. Owen Harris
+         2       Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}
+         3                                  Heikkinen, Miss. Laina
+         4            Futrelle, Mrs. Jacques Heath (Lily May Peel)
+         5                                Allen, Mr. William Henry
+         6                                        Moran, Mr. James
+         7                                 McCarthy, Mr. Timothy J
+         8                          Palsson, Master. Gosta Leonard
+         9       Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)
+         10                    Nasser, Mrs. Nicholas (Adele Achem)
+         11                        Sandstrom, Miss. Marguerite Rut
+         12                               Bonnell, Miss. Elizabeth
+         13                         Saundercock, Mr. William Henry
+         14                            Andersson, Mr. Anders Johan
+         15                   Vestrom, Miss. Hulda Amanda Adolfina
+         16                       Hewlett, Mrs. (Mary D Kingcome) 
+         17                                   Rice, Master. Eugene
+         18                           Williams, Mr. Charles Eugene
+         19      Vander Planke, Mrs. Julius (Emelia Maria Vande{\ldots}
+         20                                Masselmani, Mrs. Fatima
+         21                                   Fynney, Mr. Joseph J
+         22                                  Beesley, Mr. Lawrence
+         23                            McGowan, Miss. Anna "Annie"
+         24                           Sloper, Mr. William Thompson
+         25                          Palsson, Miss. Torborg Danira
+         26      Asplund, Mrs. Carl Oscar (Selma Augusta Emilia{\ldots}
+         27                                Emir, Mr. Farred Chehab
+         28                         Fortune, Mr. Charles Alexander
+         29                          O'Dwyer, Miss. Ellen "Nellie"
+         30                                    Todoroff, Mr. Lalio
+                                       {\ldots}                        
+         1280                                 Canavan, Mr. Patrick
+         1281                          Palsson, Master. Paul Folke
+         1282                           Payne, Mr. Vivian Ponsonby
+         1283       Lines, Mrs. Ernest H (Elizabeth Lindsey James)
+         1284                        Abbott, Master. Eugene Joseph
+         1285                                 Gilbert, Mr. William
+         1286                             Kink-Heilmann, Mr. Anton
+         1287       Smith, Mrs. Lucien Philip (Mary Eloise Hughes)
+         1288                                 Colbert, Mr. Patrick
+         1289    Frolicher-Stehli, Mrs. Maxmillian (Margaretha {\ldots}
+         1290                       Larsson-Rondberg, Mr. Edvard A
+         1291                             Conlon, Mr. Thomas Henry
+         1292                              Bonnell, Miss. Caroline
+         1293                                      Gale, Mr. Harry
+         1294                       Gibson, Miss. Dorothy Winifred
+         1295                               Carrau, Mr. Jose Pedro
+         1296                         Frauenthal, Mr. Isaac Gerald
+         1297         Nourney, Mr. Alfred (Baron von Drachstedt")"
+         1298                            Ware, Mr. William Jeffery
+         1299                           Widener, Mr. George Dunton
+         1300                      Riordan, Miss. Johanna Hannah""
+         1301                            Peacock, Miss. Treasteall
+         1302                               Naughton, Miss. Hannah
+         1303      Minahan, Mrs. William Edward (Lillian E Thorpe)
+         1304                       Henriksson, Miss. Jenny Lovisa
+         1305                                   Spector, Mr. Woolf
+         1306                         Oliva y Ocana, Dona. Fermina
+         1307                         Saether, Mr. Simon Sivertsen
+         1308                                  Ware, Mr. Frederick
+         1309                             Peter, Master. Michael J
+         Name: Name, Length: 1309, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}same as df.name, column names can be passed as string}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} PassengerId
+         1                                 Braund, Mr. Owen Harris
+         2       Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}
+         3                                  Heikkinen, Miss. Laina
+         4            Futrelle, Mrs. Jacques Heath (Lily May Peel)
+         5                                Allen, Mr. William Henry
+         6                                        Moran, Mr. James
+         7                                 McCarthy, Mr. Timothy J
+         8                          Palsson, Master. Gosta Leonard
+         9       Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)
+         10                    Nasser, Mrs. Nicholas (Adele Achem)
+         11                        Sandstrom, Miss. Marguerite Rut
+         12                               Bonnell, Miss. Elizabeth
+         13                         Saundercock, Mr. William Henry
+         14                            Andersson, Mr. Anders Johan
+         15                   Vestrom, Miss. Hulda Amanda Adolfina
+         16                       Hewlett, Mrs. (Mary D Kingcome) 
+         17                                   Rice, Master. Eugene
+         18                           Williams, Mr. Charles Eugene
+         19      Vander Planke, Mrs. Julius (Emelia Maria Vande{\ldots}
+         20                                Masselmani, Mrs. Fatima
+         21                                   Fynney, Mr. Joseph J
+         22                                  Beesley, Mr. Lawrence
+         23                            McGowan, Miss. Anna "Annie"
+         24                           Sloper, Mr. William Thompson
+         25                          Palsson, Miss. Torborg Danira
+         26      Asplund, Mrs. Carl Oscar (Selma Augusta Emilia{\ldots}
+         27                                Emir, Mr. Farred Chehab
+         28                         Fortune, Mr. Charles Alexander
+         29                          O'Dwyer, Miss. Ellen "Nellie"
+         30                                    Todoroff, Mr. Lalio
+                                       {\ldots}                        
+         1280                                 Canavan, Mr. Patrick
+         1281                          Palsson, Master. Paul Folke
+         1282                           Payne, Mr. Vivian Ponsonby
+         1283       Lines, Mrs. Ernest H (Elizabeth Lindsey James)
+         1284                        Abbott, Master. Eugene Joseph
+         1285                                 Gilbert, Mr. William
+         1286                             Kink-Heilmann, Mr. Anton
+         1287       Smith, Mrs. Lucien Philip (Mary Eloise Hughes)
+         1288                                 Colbert, Mr. Patrick
+         1289    Frolicher-Stehli, Mrs. Maxmillian (Margaretha {\ldots}
+         1290                       Larsson-Rondberg, Mr. Edvard A
+         1291                             Conlon, Mr. Thomas Henry
+         1292                              Bonnell, Miss. Caroline
+         1293                                      Gale, Mr. Harry
+         1294                       Gibson, Miss. Dorothy Winifred
+         1295                               Carrau, Mr. Jose Pedro
+         1296                         Frauenthal, Mr. Isaac Gerald
+         1297         Nourney, Mr. Alfred (Baron von Drachstedt")"
+         1298                            Ware, Mr. William Jeffery
+         1299                           Widener, Mr. George Dunton
+         1300                      Riordan, Miss. Johanna Hannah""
+         1301                            Peacock, Miss. Treasteall
+         1302                               Naughton, Miss. Hannah
+         1303      Minahan, Mrs. William Edward (Lillian E Thorpe)
+         1304                       Henriksson, Miss. Jenny Lovisa
+         1305                                   Spector, Mr. Woolf
+         1306                         Oliva y Ocana, Dona. Fermina
+         1307                         Saether, Mr. Simon Sivertsen
+         1308                                  Ware, Mr. Frederick
+         1309                             Peter, Master. Michael J
+         Name: Name, Length: 1309, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}multiple columns}
+         \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}                                                           Name   Age
+         PassengerId                                                         
+         1                                      Braund, Mr. Owen Harris  22.0
+         2            Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  38.0
+         3                                       Heikkinen, Miss. Laina  26.0
+         4                 Futrelle, Mrs. Jacques Heath (Lily May Peel)  35.0
+         5                                     Allen, Mr. William Henry  35.0
+         6                                             Moran, Mr. James   NaN
+         7                                      McCarthy, Mr. Timothy J  54.0
+         8                               Palsson, Master. Gosta Leonard   2.0
+         9            Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)  27.0
+         10                         Nasser, Mrs. Nicholas (Adele Achem)  14.0
+         11                             Sandstrom, Miss. Marguerite Rut   4.0
+         12                                    Bonnell, Miss. Elizabeth  58.0
+         13                              Saundercock, Mr. William Henry  20.0
+         14                                 Andersson, Mr. Anders Johan  39.0
+         15                        Vestrom, Miss. Hulda Amanda Adolfina  14.0
+         16                            Hewlett, Mrs. (Mary D Kingcome)   55.0
+         17                                        Rice, Master. Eugene   2.0
+         18                                Williams, Mr. Charles Eugene   NaN
+         19           Vander Planke, Mrs. Julius (Emelia Maria Vande{\ldots}  31.0
+         20                                     Masselmani, Mrs. Fatima   NaN
+         21                                        Fynney, Mr. Joseph J  35.0
+         22                                       Beesley, Mr. Lawrence  34.0
+         23                                 McGowan, Miss. Anna "Annie"  15.0
+         24                                Sloper, Mr. William Thompson  28.0
+         25                               Palsson, Miss. Torborg Danira   8.0
+         26           Asplund, Mrs. Carl Oscar (Selma Augusta Emilia{\ldots}  38.0
+         27                                     Emir, Mr. Farred Chehab   NaN
+         28                              Fortune, Mr. Charles Alexander  19.0
+         29                               O'Dwyer, Miss. Ellen "Nellie"   NaN
+         30                                         Todoroff, Mr. Lalio   NaN
+         {\ldots}                                                        {\ldots}   {\ldots}
+         1280                                      Canavan, Mr. Patrick  21.0
+         1281                               Palsson, Master. Paul Folke   6.0
+         1282                                Payne, Mr. Vivian Ponsonby  23.0
+         1283            Lines, Mrs. Ernest H (Elizabeth Lindsey James)  51.0
+         1284                             Abbott, Master. Eugene Joseph  13.0
+         1285                                      Gilbert, Mr. William  47.0
+         1286                                  Kink-Heilmann, Mr. Anton  29.0
+         1287            Smith, Mrs. Lucien Philip (Mary Eloise Hughes)  18.0
+         1288                                      Colbert, Mr. Patrick  24.0
+         1289         Frolicher-Stehli, Mrs. Maxmillian (Margaretha {\ldots}  48.0
+         1290                            Larsson-Rondberg, Mr. Edvard A  22.0
+         1291                                  Conlon, Mr. Thomas Henry  31.0
+         1292                                   Bonnell, Miss. Caroline  30.0
+         1293                                           Gale, Mr. Harry  38.0
+         1294                            Gibson, Miss. Dorothy Winifred  22.0
+         1295                                    Carrau, Mr. Jose Pedro  17.0
+         1296                              Frauenthal, Mr. Isaac Gerald  43.0
+         1297              Nourney, Mr. Alfred (Baron von Drachstedt")"  20.0
+         1298                                 Ware, Mr. William Jeffery  23.0
+         1299                                Widener, Mr. George Dunton  50.0
+         1300                           Riordan, Miss. Johanna Hannah""   NaN
+         1301                                 Peacock, Miss. Treasteall   3.0
+         1302                                    Naughton, Miss. Hannah   NaN
+         1303           Minahan, Mrs. William Edward (Lillian E Thorpe)  37.0
+         1304                            Henriksson, Miss. Jenny Lovisa  28.0
+         1305                                        Spector, Mr. Woolf   NaN
+         1306                              Oliva y Ocana, Dona. Fermina  39.0
+         1307                              Saether, Mr. Simon Sivertsen  38.5
+         1308                                       Ware, Mr. Frederick   NaN
+         1309                                  Peter, Master. Michael J   NaN
+         
+         [1309 rows x 2 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{}provide index of rows to extract [rows,columns]}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}               Age Cabin Embarked     Fare  \textbackslash{}
+         PassengerId                                 
+         5            35.0   NaN        S   8.0500   
+         6             NaN   NaN        Q   8.4583   
+         7            54.0   E46        S  51.8625   
+         8             2.0   NaN        S  21.0750   
+         9            27.0   NaN        S  11.1333   
+         10           14.0   NaN        C  30.0708   
+         
+                                                                   Name  Parch  Pclass  \textbackslash{}
+         PassengerId                                                                     
+         5                                     Allen, Mr. William Henry      0       3   
+         6                                             Moran, Mr. James      0       3   
+         7                                      McCarthy, Mr. Timothy J      0       1   
+         8                               Palsson, Master. Gosta Leonard      1       3   
+         9            Johnson, Mrs. Oscar W (Elisabeth Vilhelmina Berg)      2       3   
+         10                         Nasser, Mrs. Nicholas (Adele Achem)      0       2   
+         
+                         Sex  SibSp  Survived  Ticket  
+         PassengerId                                   
+         5              male      0         0  373450  
+         6              male      0         0  330877  
+         7              male      0         0   17463  
+         8              male      3         0  349909  
+         9            female      0         1  347742  
+         10           female      1         1  237736  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}              SibSp   Age
+         PassengerId             
+         5                0  35.0
+         6                0   NaN
+         7                0  54.0
+         8                3   2.0
+         9                0  27.0
+         10               1  14.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}filter rows based on certain criteria}
+         \PY{n}{male\PYZus{}pass} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Sex} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+         \PY{n}{male\PYZus{}pass}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}               Age Cabin Embarked     Fare                            Name  \textbackslash{}
+         PassengerId                                                                 
+         1            22.0   NaN        S   7.2500         Braund, Mr. Owen Harris   
+         5            35.0   NaN        S   8.0500        Allen, Mr. William Henry   
+         6             NaN   NaN        Q   8.4583                Moran, Mr. James   
+         7            54.0   E46        S  51.8625         McCarthy, Mr. Timothy J   
+         8             2.0   NaN        S  21.0750  Palsson, Master. Gosta Leonard   
+         
+                      Parch  Pclass   Sex  SibSp  Survived     Ticket  
+         PassengerId                                                   
+         1                0       3  male      1         0  A/5 21171  
+         5                0       3  male      0         0     373450  
+         6                0       3  male      0         0     330877  
+         7                0       1  male      0         0      17463  
+         8                1       3  male      3         0     349909  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{}complex logic using \PYZam{} or}
+         \PY{n}{male\PYZus{}pass} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Sex} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Pclass} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+         \PY{n}{male\PYZus{}pass}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:}               Age Cabin Embarked     Fare                            Name  \textbackslash{}
+         PassengerId                                                                 
+         1            22.0   NaN        S   7.2500         Braund, Mr. Owen Harris   
+         5            35.0   NaN        S   8.0500        Allen, Mr. William Henry   
+         6             NaN   NaN        Q   8.4583                Moran, Mr. James   
+         8             2.0   NaN        S  21.0750  Palsson, Master. Gosta Leonard   
+         13           20.0   NaN        S   8.0500  Saundercock, Mr. William Henry   
+         
+                      Parch  Pclass   Sex  SibSp  Survived     Ticket  
+         PassengerId                                                   
+         1                0       3  male      1         0  A/5 21171  
+         5                0       3  male      0         0     373450  
+         6                0       3  male      0         0     330877  
+         8                1       3  male      3         0     349909  
+         13               0       3  male      0         0  A/5. 2151  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:}                Age         Fare        Parch       Pclass        SibSp  \textbackslash{}
+         count  1046.000000  1308.000000  1309.000000  1309.000000  1309.000000   
+         mean     29.881138    33.295479     0.385027     2.294882     0.498854   
+         std      14.413493    51.758668     0.865560     0.837836     1.041658   
+         min       0.170000     0.000000     0.000000     1.000000     0.000000   
+         25\%      21.000000     7.895800     0.000000     2.000000     0.000000   
+         50\%      28.000000    14.454200     0.000000     3.000000     0.000000   
+         75\%      39.000000    31.275000     0.000000     3.000000     1.000000   
+         max      80.000000   512.329200     9.000000     3.000000     8.000000   
+         
+                   Survived  
+         count  1309.000000  
+         mean     -0.058060  
+         std       0.760044  
+         min      -1.000000  
+         25\%      -1.000000  
+         50\%       0.000000  
+         75\%       1.000000  
+         max       1.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{male\PYZus{}pass}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}               Age        Fare       Parch  Pclass       SibSp    Survived
+         count  349.000000  492.000000  493.000000   493.0  493.000000  493.000000
+         mean    25.962264   12.415462    0.255578     3.0    0.470588   -0.200811
+         std     11.682415   11.261638    0.788377     0.0    1.218775    0.593186
+         min      0.330000    0.000000    0.000000     3.0    0.000000   -1.000000
+         25\%     20.000000    7.750000    0.000000     3.0    0.000000   -1.000000
+         50\%     25.000000    7.895800    0.000000     3.0    0.000000    0.000000
+         75\%     32.000000    9.586450    0.000000     3.0    0.000000    0.000000
+         max     74.000000   69.550000    9.000000     3.0    8.000000    1.000000
+\end{Verbatim}
+            
+    \section{Summary stastics.}\label{summary-stastics.}
+
+Numerical: std dev, mean, max, min Categorical: count, unique count,
+proportions
+
+\section{Measures}\label{measures}
+
+centrality: mean, median Dispersion: variability, range, percentiles,
+variance, std dev Quartlies can be plotted using box-whisker plots. 50th
+percentile is median value. IQR : Iterquartile range: from 25th- 75th
+percentile Outliers: beyond 1.5 x IQR
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} 33.2954792813456
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} -512.3292
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} 2678.959737892894
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min fare is: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Min fare is: 0.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{df}\PY{o}{.}\PY{n}{Fare}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{box}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x2c0943285f8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{df}\PY{o}{.}\PY{n}{Sex}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{} get raw count}
+         \PY{n}{df}\PY{o}{.}\PY{n}{Sex}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} get proportions}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} male      0.644003
+         female    0.355997
+         Name: Sex, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{df1} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Sex} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{Survived} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{Survived}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{df1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
